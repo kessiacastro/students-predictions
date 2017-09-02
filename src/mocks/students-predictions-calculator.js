@@ -54,6 +54,6 @@ function isEvadido(list) {
 
 export const APROVADOS = students.filter(isAprovado);
 
-export const REPROVADOS = students.filter(isAprovado);
+export const REPROVADOS = students.filter(isReprovado);
 
-export const EVADIDOS = students.filter(isAprovado);
+export const EVADIDOS = students.filter(isEvadido);

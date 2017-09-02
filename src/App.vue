@@ -7,25 +7,30 @@
         </a>
       </div>
     </nav>
-    <section>
+    <section class="mt">
       <div class="container has-text-centered">
         <div class="notification">
           <h1 class="title is-3">Adicione os dados dos estudantes:</h1>
-          <a class="button is-info">Upload</a>  
+          <a class="button is-info">
+            <span class="icon">
+              <i class="fa fa-upload"></i>
+            </span>
+            <span>Upload</span>
+          </a>
         </div>
       </div>
     </section>
-    <section>
+    <section class="mt">
       <div class="container">
         <div class="columns">
           <div class="column">
-            <card></card>
+            <card title='aprovado' :studentList="aprovados"></card>
           </div>
           <div class="column">
-            <card></card>
+            <card title='reprovado' :studentList="reprovados"></card>
           </div>
           <div class="column">
-            <card></card>
+            <card title='evadido' :studentList="evadidos"></card>
           </div>
         </div>
       </div>
@@ -35,6 +40,9 @@
 
 <script>
 import Card from './components/cards/Card.vue'
+import { APROVADOS } from './mocks/students-predictions-calculator.js'
+import { REPROVADOS } from './mocks/students-predictions-calculator.js'
+import { EVADIDOS } from './mocks/students-predictions-calculator.js'
 export default {
   name: 'app',
   components: {
@@ -42,7 +50,9 @@ export default {
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      aprovados: APROVADOS,
+      reprovados: REPROVADOS,
+      evadidos: EVADIDOS
     }
   }
 }
@@ -57,5 +67,8 @@ a.navbar-item {
 a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
   color: #00D1B2;
   background-color: #FFF;
+}
+.mt {
+  margin-top: 1em;
 }
 </style>

@@ -2,26 +2,29 @@
   <div id="cards" class="card">
     <header class="card-header">
       <p class="card-header-title">
-        Component
+        Tende a ser {{title}}: {{studentList.length}}
       </p>
-      <a class="card-header-icon">
-        <span class="icon">
-          <i class="fa fa-angle-down"></i>
-        </span>
-      </a>
     </header>
     <div class="card-content">
       <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-        <a>@bulmaio</a>. <a>#css</a> <a>#responsive</a>
-        <br>
-        <small>11:09 PM - 1 Jan 2016</small>
+        <table class="table is-fullwidth">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Curso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="student in studentList">
+            <td>{{student.nome}}</td>
+            <td>{{student.curso}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <footer class="card-footer">
       <a class="card-footer-item">Save</a>
-      <a class="card-footer-item">Edit</a>
-      <a class="card-footer-item">Delete</a>
     </footer>
   </div>
 </template>
@@ -30,12 +33,12 @@
 
 export default {
   name: 'cards',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
+  props:['studentList', 'title']
 }
 </script>
-<style>
+<style scopped>
+.content {
+  height: 250px;
+  overflow: auto;
+}
 </style>
