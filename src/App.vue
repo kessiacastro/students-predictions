@@ -1,27 +1,45 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <h1>Students Predictions</h1>
+        </a>
+      </div>
+    </nav>
+    <section>
+      <div class="container has-text-centered">
+        <div class="notification">
+          <h1 class="title is-3">Adicione os dados dos estudantes:</h1>
+          <a class="button is-info">Upload</a>  
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <card></card>
+          </div>
+          <div class="column">
+            <card></card>
+          </div>
+          <div class="column">
+            <card></card>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
+import Card from './components/cards/Card.vue'
 export default {
   name: 'app',
+  components: {
+    Card
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
@@ -29,32 +47,15 @@ export default {
   }
 }
 </script>
-
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.navbar {
+  background-color: #00D1B2;
 }
-
-h1, h2 {
-  font-weight: normal;
+a.navbar-item {
+  color: #FFF
 }
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
+  color: #00D1B2;
+  background-color: #FFF;
 }
 </style>
