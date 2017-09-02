@@ -1,6 +1,6 @@
 <template>
   <div id="cards" class="card">
-    <header class="card-header">
+    <header class="card-header" :style="style">
       <p class="card-header-title">
         Tende a ser {{title}}: {{studentList.length}}
       </p>
@@ -33,7 +33,17 @@
 
 export default {
   name: 'cards',
-  props:['studentList', 'title']
+  props:['studentList', 'title', 'styleType'],
+  computed: {
+    style () {
+      let colors = {
+        'is-success': '#22C65B',
+        'is-danger': '#FF2B56',
+        'is-warning': '#FFDB4A'
+      }
+      return 'background-color: ' + colors[this.styleType]
+    }
+  }
 }
 </script>
 <style scopped>

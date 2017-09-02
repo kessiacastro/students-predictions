@@ -24,13 +24,13 @@
       <div class="container">
         <div class="columns">
           <div class="column">
-            <card title='aprovado' :studentList="aprovados"></card>
+            <card title='aprovado' :studentList="aprovados" :styleType="'is-success'"></card>
           </div>
           <div class="column">
-            <card title='reprovado' :studentList="reprovados"></card>
+            <card title='reprovado' :studentList="reprovados" :styleType="'is-danger'"></card>
           </div>
           <div class="column">
-            <card title='evadido' :studentList="evadidos"></card>
+            <card title='evadido' :studentList="evadidos" :styleType="'is-warning'"></card>
           </div>
         </div>
       </div>
