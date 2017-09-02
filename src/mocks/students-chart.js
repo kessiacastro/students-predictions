@@ -1,8 +1,8 @@
 import Chart from 'chart.js';
-import APROVADOS, REPROVADOS, EVADIDOS from '.students-predictions-calculator.js'
+import { APROVADOS, REPROVADOS, EVADIDOS } from './students-predictions-calculator.js'
 
 // Data from approved, failed, and evaded students
-const data = {
+export const data = {
     datasets: [{
         data: [APROVADOS.length, EVADIDOS.length, REPROVADOS.length]
     }],

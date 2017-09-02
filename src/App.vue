@@ -35,14 +35,16 @@
         </div>
       </div>
     </section>
+    <section class="mt">
+      <canvas id="myChart" width="400" height="400"></canvas>
+    </section>
   </div>
 </template>
 
 <script>
 import Card from './components/cards/Card.vue'
-import { APROVADOS } from './mocks/students-predictions-calculator.js'
-import { REPROVADOS } from './mocks/students-predictions-calculator.js'
-import { EVADIDOS } from './mocks/students-predictions-calculator.js'
+import { APROVADOS, REPROVADOS, EVADIDOS } from './mocks/students-predictions-calculator.js'
+import { myPieChart } from './mocks/students-chart.js'
 export default {
   name: 'app',
   components: {
