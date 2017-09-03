@@ -35,9 +35,11 @@
         </div>
       </div>
     </section>
-    <div class="box">
-      <chart type='pie' :aprovados="num_aprovados" :reprovados="num_reprovados" :evadidos="num_evadidos"></chart>
-    </div>
+    <section class="mt">
+      <div class="container graphs">
+        <chart type='pie' :aprovados="num_aprovados" :reprovados="num_reprovados" :evadidos="num_evadidos"></chart>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -76,5 +78,9 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 }
 .mt {
   margin-top: 1em;
+}
+.graphs {
+  height: 400px;
+  width: 400px;
 }
 </style>

@@ -21,11 +21,11 @@ export default {
         options: {
           title: {
             display: true,
-            text: 'Alunos que tendem a serem aprovados, evadidos ou reprovados'
+            text: 'Alunos que tendem a serem aprovados, evadidos ou reprovados',
+            maintainAspectRatio: false
           }
         }
     })
   }
 }
 </script>
-
