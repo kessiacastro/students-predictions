@@ -11,7 +11,7 @@
       <div class="container has-text-centered">
         <div class="notification">
           <h1 class="title is-3">Adicione os dados dos estudantes:</h1>
-          <a class="button is-info">
+          <a class="button is-info" :class="{ 'is-loading': isLoading }" @click="upload()">
             <span class="icon">
               <i class="fa fa-upload"></i>
             </span>
@@ -24,13 +24,25 @@
       <div class="container">
         <div class="columns">
           <div class="column">
-            <card title='aprovado' :studentList="aprovados" :styleType="'is-success'"></card>
+            <card title='aprovado' :studentList="aprovados"
+                                   :styleType="'is-success'"
+                                   :showData="showData"
+                                   :isLoading="isLoading">
+            </card>
           </div>
           <div class="column">
-            <card title='reprovado' :studentList="reprovados" :styleType="'is-danger'"></card>
+            <card title='reprovado' :studentList="reprovados"
+                                    :styleType="'is-danger'"
+                                    :showData="showData"
+                                    :isLoading="isLoading">
+            </card>
           </div>
           <div class="column">
-            <card title='evadido' :studentList="evadidos" :styleType="'is-warning'"></card>
+            <card title='evadido' :studentList="evadidos"
+                                  :styleType="'is-warning'"
+                                  :showData="showData"
+                                  :isLoading="isLoading">
+            </card>
           </div>
         </div>
       </div>
@@ -47,7 +59,11 @@
         </ul>
       </div>
       <div class="container graphs">
-        <component :is="currentChart" :aprovados="num_aprovados" :reprovados="num_reprovados" :evadidos="num_evadidos"></component>
+        <component v-show="showData" :is="currentChart"
+                                     :aprovados="num_aprovados"
+                                     :reprovados="num_reprovados"
+                                     :evadidos="num_evadidos">
+        </component>
       </div>
     </section>
   </div>
@@ -77,7 +93,19 @@ export default {
       num_aprovados: APROVADOS.length,
       num_evadidos: EVADIDOS.length,
       num_reprovados: REPROVADOS.length,
-      currentChart: 'pie'
+      currentChart: 'pie',
+      showData: false,
+      isLoading: false
+    }
+  },
+  methods: {
+    upload () {
+      this.isLoading = "true"
+      let that = this
+      setTimeout (function () {
+          that.isLoading = false
+          that.showData = true
+      }, 2000);
     }
   }
 }

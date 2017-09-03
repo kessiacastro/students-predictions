@@ -2,12 +2,16 @@
   <div id="cards" class="card">
     <header class="card-header" :style="style">
       <p class="card-header-title">
-        Tende a ser {{title}}: {{studentList.length}}
+        Tende a ser {{title}}: {{showData ? studentList.length : ''}}
       </p>
     </header>
     <div class="card-content">
       <div class="content">
-        <table class="table is-fullwidth">
+        <div v-show="!showData && !isLoading">Nenhum aluno encontrado.</div>
+        <div v-if="isLoading" class="has-text-centered loading">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw loading-icon"></i>
+        </div>
+        <table v-else class="table is-fullwidth" v-show="showData">
           <thead>
             <tr>
               <th>Nome</th>
@@ -33,7 +37,7 @@
 
 export default {
   name: 'cards',
-  props:['studentList', 'title', 'styleType'],
+  props:['studentList', 'title', 'styleType', 'showData', 'isLoading'],
   computed: {
     style () {
       let colors = {
@@ -50,5 +54,12 @@ export default {
 .content {
   height: 250px;
   overflow: auto;
+}
+.loading {
+  height: 100%;
+  padding: 100px;
+}
+.loading-icon {
+  color: #DBDBDB;
 }
 </style>
