@@ -52,10 +52,9 @@
       <h1 class="mt title is-3">Estatísticas</h1>
       <div class="tabs is-centered">
         <ul>
-          <li><a @click="currentChart='pie'">Gráfico em Pizza</a></li>
-          <li><a @click="currentChart='bar'">Gráfico em Barra</a></li>
-          <li><a @click="currentChart='polar'">Gráfico Polar</a></li>
-          <li><a @click="currentChart='doughnut'">Gráfico de Rosca</a></li>
+          <li v-for="tab in tabs" :class="{ 'is-active': tab.selected }">
+            <a @click="setGraph(tab)">{{tab.description}}</a>
+          </li>
         </ul>
       </div>
       <div class="container graphs">
@@ -95,7 +94,13 @@ export default {
       num_reprovados: REPROVADOS.length,
       currentChart: 'pie',
       showData: false,
-      isLoading: false
+      isLoading: false,
+      tabs: [
+        {'name': 'pie', 'description': 'Gráfico em Pizza', 'selected': false},
+        {'name': 'bar', 'description': 'Gráfico em Barra', 'selected': false},
+        {'name': 'polar', 'description': 'Gráfico Polar', 'selected': false},
+        {'name': 'doughnut', 'description': 'Gráfico em Rosca', 'selected': false}
+      ]
     }
   },
   methods: {
@@ -105,7 +110,14 @@ export default {
       setTimeout (function () {
           that.isLoading = false
           that.showData = true
+          that.tabs[0].selected = true
       }, 2000);
+    },
+    setGraph (tab) {
+      this.currentChart = tab.name
+      this.tabs.forEach( (element) => {
+        element.selected = element.name === tab.name
+      })
     }
   }
 }
