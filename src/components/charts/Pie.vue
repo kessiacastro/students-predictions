@@ -5,16 +5,16 @@
 <script>
 
 export default {
-  name: 'chart',
+  name: 'pie',
   props: ['type', 'aprovados', 'reprovados', 'evadidos'],
   mounted: function() {
     new Chart(document.getElementById("myChart"), {
-        type: this.type,
+        type: 'pie',
         data: {
           labels: ["Aprovados", "Evadidos", "Reprovados"],
           datasets: [{
             label: "Número de alunos",
-            backgroundColor: ["#22C65B", "#FFDB4A","#FF2B56"],
+            backgroundColor: ["rgba(0,219,74,0.5)", "rgba(255,219,74,0.5)","rgba(255,43,86,0.5)"],
             data: [this.aprovados, this.evadidos, this.reprovados]
           }]
         },

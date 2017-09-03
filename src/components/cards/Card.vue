@@ -24,7 +24,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item">Save</a>
+      <a class="card-footer-item">Salvar</a>
     </footer>
   </div>
 </template>

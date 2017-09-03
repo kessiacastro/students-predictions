@@ -35,9 +35,18 @@
         </div>
       </div>
     </section>
+
     <section class="mt">
+      <div class="tabs is-centered">
+        <ul>
+          <li><a @click="currentChart='pie'">Gráfico em Pizza</a></li>
+          <li><a @click="currentChart='bar'">Gráfico em Barra</a></li>
+          <li><a @click="currentChart='polar'">Gráfico Polar</a></li>
+          <li><a @click="currentChart='doughnut'">Gráfico de Rosca</a></li>
+        </ul>
+      </div>
       <div class="container graphs">
-        <chart type='pie' :aprovados="num_aprovados" :reprovados="num_reprovados" :evadidos="num_evadidos"></chart>
+        <component :is="currentChart" :aprovados="num_aprovados" :reprovados="num_reprovados" :evadidos="num_evadidos"></component>
       </div>
     </section>
   </div>
@@ -45,13 +54,19 @@
 
 <script>
 import Card from './components/cards/Card.vue'
-import Chart from './components/charts/Chart.vue'
+import Bar from './components/charts/Bar.vue'
+import Pie from './components/charts/Pie.vue'
+import Polar from './components/charts/Polar.vue'
+import Doughnut from './components/charts/Doughnut.vue'
 import { APROVADOS, REPROVADOS, EVADIDOS } from './mocks/students-predictions-calculator.js'
 export default {
   name: 'app',
   components: {
     Card,
-    Chart,
+    Polar,
+    Pie,
+    Bar,
+    Doughnut,
   },
   data () {
     return {
@@ -60,7 +75,8 @@ export default {
       evadidos: EVADIDOS,
       num_aprovados: APROVADOS.length,
       num_evadidos: EVADIDOS.length,
-      num_reprovados: REPROVADOS.length
+      num_reprovados: REPROVADOS.length,
+      currentChart: 'pie'
     }
   }
 }
