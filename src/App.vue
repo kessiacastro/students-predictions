@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <section class="mt has-text-centered">
+    <section class="mt mb has-text-centered">
       <h1 class="mt title is-3">Estatísticas</h1>
       <div class="tabs is-centered">
         <ul>
@@ -135,6 +135,9 @@ a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.i
 }
 .mt {
   margin-top: 1em;
+}
+.mb {
+  margin-bottom: 1em;
 }
 .graphs {
   height: 400px;
