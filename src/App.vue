@@ -36,7 +36,8 @@
       </div>
     </section>
 
-    <section class="mt">
+    <section class="mt has-text-centered">
+      <h1 class="mt title is-3">Estatísticas</h1>
       <div class="tabs is-centered">
         <ul>
           <li><a @click="currentChart='pie'">Gráfico em Pizza</a></li>
