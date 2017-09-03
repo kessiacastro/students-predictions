@@ -57,3 +57,7 @@ export const APROVADOS = students.filter(isAprovado);
 export const REPROVADOS = students.filter(isReprovado);
 
 export const EVADIDOS = students.filter(isEvadido);
+
+export const num_aprovados = APROVADOS.length
+export const num_reprovados = REPROVADOS.length
+export const num_evadidos = EVADIDOS.length

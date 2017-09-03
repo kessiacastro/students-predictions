@@ -35,26 +35,30 @@
         </div>
       </div>
     </section>
-    <section class="mt">
-      <canvas id="myChart" width="400" height="400"></canvas>
-    </section>
+    <div class="box">
+      <chart type='pie' :aprovados="num_aprovados" :reprovados="num_reprovados" :evadidos="num_evadidos"></chart>
+    </div>
   </div>
 </template>
 
 <script>
 import Card from './components/cards/Card.vue'
+import Chart from './components/charts/Chart.vue'
 import { APROVADOS, REPROVADOS, EVADIDOS } from './mocks/students-predictions-calculator.js'
-import { myPieChart } from './mocks/students-chart.js'
 export default {
   name: 'app',
   components: {
-    Card
+    Card,
+    Chart,
   },
   data () {
     return {
       aprovados: APROVADOS,
       reprovados: REPROVADOS,
-      evadidos: EVADIDOS
+      evadidos: EVADIDOS,
+      num_aprovados: APROVADOS.length,
+      num_evadidos: EVADIDOS.length,
+      num_reprovados: REPROVADOS.length
     }
   }
 }
