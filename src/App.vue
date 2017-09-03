@@ -59,7 +59,7 @@
         </ul>
       </div>
       <div class="container graphs">
-        <component v-show="showData" :is="currentChart"
+        <component v-show="showData && !isLoading" :is="currentChart"
                                      :aprovados="num_aprovados"
                                      :reprovados="num_reprovados"
                                      :evadidos="num_evadidos">

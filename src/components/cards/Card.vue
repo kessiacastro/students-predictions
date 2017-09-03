@@ -2,7 +2,7 @@
   <div id="cards" class="card">
     <header class="card-header" :style="style">
       <p class="card-header-title">
-        Tende a ser {{title}}: {{showData ? studentList.length : ''}}
+        Tende a ser {{title}}: {{showData && !isLoading ? studentList.length : ''}}
       </p>
     </header>
     <div class="card-content">
