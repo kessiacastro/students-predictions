@@ -14,14 +14,14 @@
         <table v-else class="table is-fullwidth" v-show="showData">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Curso</th>
+              <th>Matrícula</th>
+              <th>Média Final</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="student in studentList">
-            <td>{{student.nome}}</td>
-            <td>{{student.curso}}</td>
+            <td>{{student['Matricula']}}</td>
+            <td>{{student['Media_Final']}}</td>
             </tr>
           </tbody>
         </table>

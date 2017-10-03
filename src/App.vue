@@ -75,6 +75,10 @@ import Pie from './components/charts/Pie.vue'
 import Polar from './components/charts/Polar.vue'
 import Doughnut from './components/charts/Doughnut.vue'
 import { APROVADOS, REPROVADOS, EVADIDOS } from './mocks/students-predictions-calculator.js'
+import csvJSON from './utils/csvToJson'
+import decisionTree from './decision_tree/decision_tree'
+import axios from 'axios';
+
 export default {
   name: 'app',
   components: {
@@ -86,12 +90,9 @@ export default {
   },
   data () {
     return {
-      aprovados: APROVADOS,
-      reprovados: REPROVADOS,
-      evadidos: EVADIDOS,
-      num_aprovados: APROVADOS.length,
-      num_evadidos: EVADIDOS.length,
-      num_reprovados: REPROVADOS.length,
+      aprovados: [],
+      reprovados: [],
+      evadidos: [],
       currentChart: 'pie',
       showData: false,
       isLoading: false,
@@ -100,18 +101,48 @@ export default {
         {'name': 'bar', 'description': 'Gráfico em Barra', 'selected': false},
         {'name': 'polar', 'description': 'Gráfico Polar', 'selected': false},
         {'name': 'doughnut', 'description': 'Gráfico em Rosca', 'selected': false}
-      ]
+      ],
+      students: null
+    }
+  },
+  computed: {
+    num_aprovados: function() {
+      return this.aprovados.length
+    },
+    num_evadidos: function() {
+      return this.evadidos.length
+    },
+    num_reprovados: function() {
+      return this.reprovados.length
     }
   },
   methods: {
     upload () {
       this.isLoading = "true"
-      let that = this
-      setTimeout (function () {
-          that.isLoading = false
-          that.showData = true
-          that.tabs[0].selected = true
-      }, 2000);
+      axios.get('http://localhost:8080/src/mocks/students_data.txt').then(res => {
+      let data = csvJSON(res.data)
+      data.forEach(element => {
+        // Media_Final, Faltas, Renda, CoefRendimento, Frequencia
+        let result = decisionTree(element['Media_Final'], element['Faltas'], element['Renda'], element['CoefRendimento'], element['Frequencia'])
+        let bigger = result.sort()
+        if (result.indexOf(bigger[0]) === 0) {
+          element['Resultado'] = 'Aprovado'
+          this.aprovados.push(element)
+        }
+        if (result.indexOf(bigger[0]) === 1) {
+          element['Resultado'] = 'Reprovado'
+           this.reprovados.push(element)
+        }
+        if (result.indexOf(bigger[0]) === 2) {
+          element['Resultado'] = 'Evadido'
+           this.evadidos.push(element)
+        }
+      })
+      this.students = data
+      this.isLoading = false
+      this.showData = true
+      this.tabs[0].selected = true
+    });
     },
     setGraph (tab) {
       this.currentChart = tab.name
