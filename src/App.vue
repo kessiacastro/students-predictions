@@ -124,7 +124,7 @@ export default {
       data.forEach(element => {
         // Media_Final, Faltas, Renda, CoefRendimento, Frequencia
         let result = decisionTree(element['Media_Final'], element['Faltas'], element['Renda'], element['CoefRendimento'], element['Frequencia'])
-        let bigger = result.sort()
+        let bigger = result.sort((a,b) => b - a)
         if (result.indexOf(bigger[0]) === 0) {
           element['Resultado'] = 'Aprovado'
           this.aprovados.push(element)
