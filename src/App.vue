@@ -123,7 +123,7 @@ export default {
       let data = csvJSON(res.data)
       data.forEach(element => {
         // Media_Final, Faltas, Renda, CoefRendimento, Frequencia
-        let result = decisionTree(element['Media_Final'], element['Faltas'], element['Renda'], element['CoefRendimento'], element['Frequencia'])
+        let result = decisionTree(parseFloat(element['Media_Final']), parseFloat(element['Faltas']), parseFloat(element['Renda']), parseFloat(element['CoefRendimento']), parseFloat(element['Frequencia']))
         let bigger = result.sort((a,b) => b - a)
         if (result.indexOf(bigger[0]) === 0) {
           element['Resultado'] = 'Aprovado'
