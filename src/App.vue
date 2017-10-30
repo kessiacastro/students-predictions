@@ -76,7 +76,7 @@ import Polar from './components/charts/Polar.vue'
 import Doughnut from './components/charts/Doughnut.vue'
 import { APROVADOS, REPROVADOS, EVADIDOS } from './mocks/students-predictions-calculator.js'
 import csvJSON from './utils/csvToJson'
-import decisionTree from './decision_tree/decision_tree'
+import decisionTree from './decision_tree/decision_tree.js'
 import axios from 'axios';
 
 export default {
@@ -119,21 +119,22 @@ export default {
   methods: {
     upload () {
       this.isLoading = "true"
-      axios.get('http://localhost:8080/src/mocks/students_data.txt').then(res => {
-      let data = csvJSON(res.data)
+      axios.get('http://localhost:8080/src/mocks/students_data.js').then(res => {
+      let data = res.data
+
       data.forEach(element => {
         // Media_Final, Faltas, Renda, CoefRendimento, Frequencia
         let result = decisionTree(parseFloat(element['Media_Final']), parseFloat(element['Faltas']), parseFloat(element['Renda']), parseFloat(element['CoefRendimento']), parseFloat(element['Frequencia']))
-        let bigger = result.sort((a,b) => b - a)
-        if (result.indexOf(bigger[0]) === 0) {
+        let bigger = Math.max(...result);
+        if (result.indexOf(bigger) === 0) {
           element['Resultado'] = 'Aprovado'
           this.aprovados.push(element)
         }
-        if (result.indexOf(bigger[0]) === 1) {
+        if (result.indexOf(bigger) === 1) {
           element['Resultado'] = 'Reprovado'
            this.reprovados.push(element)
         }
-        if (result.indexOf(bigger[0]) === 2) {
+        if (result.indexOf(bigger) === 2) {
           element['Resultado'] = 'Evadido'
            this.evadidos.push(element)
         }
