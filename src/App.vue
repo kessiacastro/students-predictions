@@ -13,10 +13,53 @@
           <h1 class="title is-3">Adicione os dados dos estudantes:</h1>
           <a class="button is-info" :class="{ 'is-loading': isLoading }" @click="upload()">
             <span class="icon">
-              <i class="fa fa-upload"></i>
+              <i class="fa fa-flask"></i>
             </span>
-            <span>Upload</span>
+            <span>Analisar</span>
           </a>
+        </div>
+      </div>
+    </section>
+    <section class="mt mb has-text-centered" v-show="showData && !isLoading">
+      <h1 class="title is-5 mt">Aplicar filtros:</h1>
+      <div class="field mt is-horizontal">
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-text-centered">
+              <div class="select">
+                <select @change="filterData($event.target.value.split(','))">
+                  <option>Etnia:</option>
+                  <option :value="['Etnia', 'Branca']">Branca</option>
+                  <option :value="['Etnia', 'Preta']">Preta</option>
+                  <option :value="['Etnia', 'Parda']">Parda</option>
+                  <option :value="['Etnia', 'Indígena']">Indígena</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control has-text-centered">
+              <div class="select">
+                <select @change="filterData($event.target.value.split(','))">
+                  <option>Escola de Origem:</option>
+                  <option :value="['Tipo_Escola_Origem', 'Pública Estadual']">Pública Estadual</option>
+                  <option :value="['Tipo_Escola_Origem', 'Pública Federal']">Pública Federal</option>
+                  <option :value="['Tipo_Escola_Origem', 'Privada']">Privada</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <div class="control has-text-centered">
+              <div class="select">
+                <select @change="filterData($event.target.value.split(','))">
+                  <option>Sexo:</option>
+                  <option :value="['Sexo', 'F']">Feminino</option>
+                  <option :value="['Sexo', 'M']">Masculino</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -93,7 +136,7 @@ export default {
       aprovados: [],
       reprovados: [],
       evadidos: [],
-      currentChart: 'pie',
+      currentChart: '',
       showData: false,
       isLoading: false,
       tabs: [
@@ -118,10 +161,12 @@ export default {
   },
   methods: {
     upload () {
-      this.isLoading = "true"
+      this.isLoading = true
       axios.get('http://localhost:8080/src/mocks/students_data.js').then(res => {
       let data = res.data
-
+      console.log(data[0])
+      console.log(data[3])
+      console.log(data[150])
       data.forEach(element => {
         // Media_Final, Faltas, Renda, CoefRendimento, Frequencia
         let result = decisionTree(parseFloat(element['Media_Final']), parseFloat(element['Faltas']), parseFloat(element['Renda']), parseFloat(element['CoefRendimento']), parseFloat(element['Frequencia']))
@@ -140,9 +185,11 @@ export default {
         }
       })
       this.students = data
+      this.tabs[0].selected = true
+      this.setGraph (this.tabs[0])
+      this.currentChart = 'pie'
       this.isLoading = false
       this.showData = true
-      this.tabs[0].selected = true
     });
     },
     setGraph (tab) {
@@ -150,6 +197,18 @@ export default {
       this.tabs.forEach( (element) => {
         element.selected = element.name === tab.name
       })
+    },
+    filterData (type) {
+      this.isLoading = true
+      this.showData = false
+      this.currentChart = ''
+      this.aprovados = this.students.filter(element => element['Resultado'] === 'Aprovado' && element[type[0]] === type[1])
+      this.reprovados = this.reprovados.filter(element => element['Resultado'] === 'Reprovado' && element[type[0]] === type[1])
+      this.evadidos = this.evadidos.filter(element => element['Resultado'] === 'Evadido' && element[type[0]] === type[1])
+      this.isLoading = false
+      this.showData = true
+      this.tabs[0].selected = true
+      this.setGraph (this.tabs[0])
     }
   }
 }
